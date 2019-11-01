@@ -5,9 +5,13 @@
 读取文本文件，生成map或者struct。
 ## 二、使用方法
 - 下载包
-`go get github.com/tpgzcyyao/config`
+```
+go get github.com/tpgzcyyao/config
+```
 - 导入包
-`import "github.com/typzcyyao/config"`
+```
+import "github.com/typzcyyao/config"
+```
 - 读取配置文件生成map，方法为LoadFile
 ```
 res, err := (new(config.Config)).LoadFile("/export/config/test.conf")
@@ -101,8 +105,10 @@ type Booleans struct {
 - key = value对应子结构体的字段
 ## 四、示例
 - 执行
-`cd $GOPATH/src/github.com/tpgzcyyao/config/test`
-`go test`
+```
+cd $GOPATH/src/github.com/tpgzcyyao/config/test
+go test
+```
 - 会得到示例结果
 ```
 The config map is: 
@@ -134,5 +140,6 @@ The config struct is:
 &{{this is string this is second = 2} {-2147483648 -9223372036854775808 2147483648 9223372036854775808} {1.1111112 2.111111111111111} {false true}}
 ```
 - 示例配置文件位置
-`$GOPATH/src/github.com/tpgzcyyao/config/test/test.conf`
-
+```
+$GOPATH/src/github.com/tpgzcyyao/config/test/test.conf
+```

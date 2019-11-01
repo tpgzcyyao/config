@@ -4,9 +4,13 @@
 This is a golang package using for reading config file and producing map or struct。
 ## II. Instructions
 - download the package
-`go get github.com/tpgzcyyao/config`
+```
+go get github.com/tpgzcyyao/config
+```
 - import the package
-`import "github.com/typzcyyao/config"`
+```
+import "github.com/typzcyyao/config"
+```
 - The function LoadFile is used for reading config file and producing map.
 ```
 res, err := (new(config.Config)).LoadFile("/export/config/test.conf")
@@ -100,8 +104,10 @@ type Booleans struct {
 - key = value is corresponding to the filed belongs to the struct's children.
 ## IV. Example
 - excute
-`cd $GOPATH/src/github.com/tpgzcyyao/config/test`
-`go test`
+```
+cd $GOPATH/src/github.com/tpgzcyyao/config/test
+go test
+```
 - you can get the result below
 ```
 The config map is: 
@@ -133,5 +139,7 @@ The config struct is:
 &{{this is string this is second = 2} {-2147483648 -9223372036854775808 2147483648 9223372036854775808} {1.1111112 2.111111111111111} {false true}}
 ```
 - the path for example config file
-`$GOPATH/src/github.com/tpgzcyyao/config/test/test.conf`
+```
+$GOPATH/src/github.com/tpgzcyyao/config/test/test.conf
+```
 
