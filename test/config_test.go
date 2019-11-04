@@ -1,11 +1,12 @@
 package test
 
 import (
-	"config"
 	"encoding/json"
 	"fmt"
 	"os"
 	"testing"
+
+	"github.com/tpgzcyyao/config"
 )
 
 type ResConfig struct {
