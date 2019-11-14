@@ -20,10 +20,7 @@ var (
 	matchSection = regexp.MustCompile(`(?:^\[)(\w+)(?:\]$)`)
 )
 
-/**
- * load config file
- * output map
- */
+// LoadFile loads config file and outputs map.
 func (c *Config) LoadFile(path string) (map[string]map[string]string, error) {
 	// open the file
 	file, err := os.Open(path)
@@ -71,10 +68,7 @@ func (c *Config) LoadFile(path string) (map[string]map[string]string, error) {
 	return result, nil
 }
 
-/**
- * load config file
- * output struct
- */
+// LoadConfig loads config file and outputs struct.
 func (c *Config) LoadConfig(path string, v interface{}) error {
 	// get config map
 	resMap, err := c.LoadFile(path)
@@ -160,10 +154,8 @@ func (c *Config) LoadConfig(path string, v interface{}) error {
 	return nil
 }
 
-/**
- * format string from camel model to snake model
- * e.g. input: SectionNameXXXX output: section_name_xxxx
- */
+// CamelToSnake formats string from camel model to snake model.
+// e.g. Input: SectionNameXXXX Output: section_name_xxxx
 func (c *Config) CamelToSnake(camel string) string {
 	snake := matchAllCap.ReplaceAllString(camel, "${1}_${2}")
 	return strings.ToLower(snake)
