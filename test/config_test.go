@@ -6,7 +6,7 @@ import (
     "os"
     "testing"
 
-    "config"
+    "github.com/tpgzcyyao/config"
 )
 
 type ResConfig struct {
