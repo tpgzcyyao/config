@@ -88,14 +88,20 @@ func (c *Config) LoadConfig(path string, v interface{}) error {
         val1 := ele0.Field(i)
         name1 := typ0.Field(i).Name
         typ1 := val1.Type()
-        key1 := c.CamelToSnake(name1)
+        key1 := typ0.Field(i).Tag.Get("conf")
+        if "" == key1 {
+            key1 = c.CamelToSnake(name1)
+        }
         len1 := typ1.NumField()
         // items in one section
         for j := 0; j < len1; j++ {
             val2 := val1.Field(j)
             name2 := typ1.Field(j).Name
             typ2 := typ1.Field(j).Type
-            key2 := c.CamelToSnake(name2)
+            key2 := typ1.Field(j).Tag.Get("conf")
+            if "" == key2 {
+                key2 = c.CamelToSnake(name2)
+            }
             if _, ok := resMap[key1][key2]; !ok {
                 continue
             }

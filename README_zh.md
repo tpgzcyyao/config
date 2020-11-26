@@ -66,28 +66,36 @@ boolean_second = true
 ### 自定义结构体示例
 ```
 type ResConfig struct {
-        StringSection  Strings
-        IntSection     Ints
-        FloatSection   Floats
-        BooleanSection Booleans
+    StringSection  Strings
+    IntSection     Ints
+    FloatSection   Floats
+    BooleanSection Booleans
+    IPICMP         IPS `conf:"ip_icmp"`
 }
 type Strings struct {
-        StringFirst  string
-        StringSecond string
+    StringFirst  string
+    StringSecond string
 }
 type Ints struct {
-        IntFirst  int
-        IntSecond int64
-        IntThird  uint
-        IntForth  uint64
+    IntFirst  int
+    IntSecond int64
+    IntThird  uint
+    IntForth  uint64
 }
 type Floats struct {
-        FloatFirst  float32
-        FloatSecond float64
+    FloatFirst  float32
+    FloatSecond float64
 }
 type Booleans struct {
-        BooleanFirst  bool
-        BooleanSecond bool
+    BooleanFirst  bool
+    BooleanSecond bool
+}
+type IPS struct {
+    IPv4  string `conf:"ipv4"`
+    IPv6  string `conf:"ipv6"`
+    IPxx  string `conf:"ip_xx"`
+    IPVxx string `conf:"ip_vxx"`
+    IpRaw string
 }
 ```
 ### 自定义结构体支持的基本类型
@@ -118,7 +126,7 @@ go test
 - 会得到示例结果
 ```
 The config map is: 
-map[boolean_section:map[boolean_first:false boolean_second:true] float_section:map[float_first:1.111111111111111111111111111111 float_second:2.1111111111111111111111111111111] int_section:map[int_first:-2147483648 int_forth:9223372036854775808 int_second:-9223372036854775808 int_third:2147483648] string_section:map[string_first:this is string string_second:this is second = 2]]
+map[boolean_section:map[boolean_first:false boolean_second:true] float_section:map[float_first:1.111111111111111111111111111111 float_second:2.1111111111111111111111111111111] int_section:map[int16_val:-32768 int32_val:-2147483648 int64_val:-9223372036854775808 int8_val:-128 int_val:-2147483648 uint16_val:65535 uint32_val:4294967295 uint64_val:18446744073709551615 uint8_val:255 uint_val:2147483647] ip_icmp:map[ip_raw:ip_raw ip_vxx:ip_vxx ip_xx:ip_xx ipv4:ipv4 ipv6:ipv6] string_section:map[string_first:this is string string_second:this is second = 2]]
 
 The config map in json format is: 
 {
@@ -131,10 +139,23 @@ The config map in json format is:
                 "float_second": "2.1111111111111111111111111111111"
         },
         "int_section": {
-                "int_first": "-2147483648",
-                "int_forth": "9223372036854775808",
-                "int_second": "-9223372036854775808",
-                "int_third": "2147483648"
+                "int16_val": "-32768",
+                "int32_val": "-2147483648",
+                "int64_val": "-9223372036854775808",
+                "int8_val": "-128",
+                "int_val": "-2147483648",
+                "uint16_val": "65535",
+                "uint32_val": "4294967295",
+                "uint64_val": "18446744073709551615",
+                "uint8_val": "255",
+                "uint_val": "2147483647"
+        },
+        "ip_icmp": {
+                "ip_raw": "ip_raw",
+                "ip_vxx": "ip_vxx",
+                "ip_xx": "ip_xx",
+                "ipv4": "ipv4",
+                "ipv6": "ipv6"
         },
         "string_section": {
                 "string_first": "this is string",
@@ -143,7 +164,7 @@ The config map in json format is:
 }
 
 The config struct is: 
-&{{this is string this is second = 2} {-2147483648 -9223372036854775808 2147483648 9223372036854775808} {1.1111112 2.111111111111111} {false true}}
+&{{this is string this is second = 2} {-2147483648 -128 -32768 -2147483648 -9223372036854775808 2147483647 255 65535 4294967295 18446744073709551615} {1.1111112 2.111111111111111} {false true} {ipv4 ipv6 ip_xx ip_vxx ip_raw}}
 ```
 - 示例配置文件位置
 ```
