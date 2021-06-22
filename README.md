@@ -41,6 +41,18 @@ func (c *Config) LoadConfig(path string, v interface{}) error
 ```
 - Parameter path is the absolute path for config file.
 - Parameter v receives incoming struct. The config will load in the struct parameter when the function LoadConfig execute completed.
+### read config bytes and produce map
+```
+func (c *Config) LoadBytes(content []byte) (map[string]map[string]string, error)
+```
+- Parameter content is the bytes like in config file.
+- The values' type in the map are all string type.
+### read config bytes and produce struct
+```
+func (c *Config) LoadConfigBytes(content []byte, v interface{}) error
+```
+- Parameter content is the bytes like in config file.
+- Parameter v receives incoming struct. The config will load in the struct parameter when the function LoadConfig execute completed.
 ### config file example
 ```
 [string_section] # this is string config

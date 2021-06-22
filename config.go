@@ -28,9 +28,30 @@ func (c *Config) LoadFile(path string) (map[string]map[string]string, error) {
         return nil, err
     }
     defer file.Close()
-    // read by line
-    result := make(map[string]map[string]string, 0)
+    // read file into buffer
     buffer := bufio.NewReader(file)
+    resMap, err := c.splitContent(buffer)
+    if err != nil {
+        return nil, err
+    }
+    return resMap, nil
+}
+
+// LoadBytes loads config bytes and outputs map.
+func (c *Config) LoadBytes(content []byte) (map[string]map[string]string, error) {
+    // read bytes into buffer
+    reader := strings.NewReader(string(content))
+    buffer := bufio.NewReader(reader)
+    resMap, err := c.splitContent(buffer)
+    if err != nil {
+        return nil, err
+    }
+    return resMap, nil
+}
+
+// split content in buffer
+func (c *Config) splitContent(buffer *bufio.Reader) (map[string]map[string]string, error) {
+    result := make(map[string]map[string]string, 0)
     section := ""
     for {
         lineBytes, _, err := buffer.ReadLine()
@@ -75,6 +96,31 @@ func (c *Config) LoadConfig(path string, v interface{}) error {
     if err != nil {
         return err
     }
+    // parse map to struct
+    err = c.parseMap(resMap, v)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+
+// LoadConfigBytes loads config bytes and outputs struct.
+func (c *Config) LoadConfigBytes(content []byte, v interface{}) error {
+    // get config map
+    resMap, err := c.LoadBytes(content)
+    if err != nil {
+        return err
+    }
+    // parse map to struct
+    err = c.parseMap(resMap, v)
+    if err != nil {
+        return err
+    }
+    return nil
+}
+
+// Parse map to sturct.
+func (c *Config) parseMap(resMap map[string]map[string]string, v interface{}) error {
     // resolve struct
     typ0 := reflect.TypeOf(v)
     if typ0.Kind() != reflect.Ptr {

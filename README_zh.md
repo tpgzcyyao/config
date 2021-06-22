@@ -42,6 +42,18 @@ func (c *Config) LoadConfig(path string, v interface{}) error
 ```
 - path为配置文件的绝对路径
 - v接收传入的结构体，方法执行完之后，配置会加载到结构体的变量中
+### 读取字节内容返回map
+```
+func (c *Config) LoadBytes(content []byte) (map[string]map[string]string, error)
+```
+- content为配置文件的字节内容
+- 返回map的value全部为string类型
+### 读取字节内容返回结构体
+```
+func (c *Config) LoadConfigBytes(content []byte, v interface{}) error
+```
+- content为配置文件的字节内容
+- v接收传入的结构体，方法执行完之后，配置会加载到结构体的变量中
 ### 配置文件示例
 ```
 [string_section] # this is string config
